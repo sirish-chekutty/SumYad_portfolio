@@ -3,247 +3,182 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chekutty Sumanth Yadav – Interactive Resume</title>
-  <meta name="description" content="Two‑page, animated, glass‑theme resume site (yellow/orange/black) for Chekutty Sumanth Yadav" />
+  <title>Chekutty Sumanth Yadav — Resume</title>
+  <meta name="description" content="Minimal, dark, two‑tone animated resume site for Chekutty Sumanth Yadav." />
+
+  <!-- Fonts & style inspired by your reference code -->
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Patrick+Hand&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      /* Yellow / Orange / Black theme */
-      --bg: #ffffff;
-      --ink: #0b0f14;           /* near‑black text */
-      --muted: #4b5563;         /* subdued */
-      --brand: #f59e0b;         /* amber */
-      --brand-2: #ff6a00;       /* orange */
-      --glass: rgba(255,255,255,.65);
-      --glass-strong: rgba(255,255,255,.88);
-      --glass-border: rgba(17,17,17,.10);
-      --shadow: rgba(0,0,0,.10);
-      --radius-lg: 20px; --radius-xl: 26px;
-      --pad: 56px; --gap: 14px;
+      /* Two‑tone dark theme */
+      --bg:#0b0f14;          /* near‑black */
+      --bg-2:#0c1118;        /* secondary */
+      --ink:#e5e7eb;         /* soft light text */
+      --muted:#9aa3af;       /* muted gray */
+      --tone:#ff7a1a;        /* accent (orange) */
+      --tone-2:#ffd56b;      /* light accent */
+
+      /* glass */
+      --card-bg: rgba(255,255,255,.08);
+      --card-stroke: rgba(255,255,255,.14);
+      --card-inner: rgba(255,255,255,.10);
+      --backdrop-blur: 14px;
+      --shadow:0 26px 80px rgba(0,0,0,.32);
+      --radius:26px;
+
+      --space: clamp(24px, 4vw, 48px);
+      --gap: 14px;
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
-    html{scroll-behavior:smooth}
-    body{margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; color:var(--ink); background:var(--bg); overflow-x:hidden}
-
-    /* ===== Background accents (subtle) ===== */
-    .stripes{position:fixed; inset:-10vmax 0 auto 0; height: 120vh; pointer-events:none; z-index:0;
+    body{
+      margin:0; color:var(--ink);
       background:
-        linear-gradient(110deg, transparent 0 55%, rgba(0,0,0,.03) 55% 56%, transparent 56% 62%, rgba(0,0,0,.025) 62% 63%, transparent 63% 100%),
-        radial-gradient(60rem 40rem at 85% -10%, rgba(245,158,11,.25), transparent 60%),
-        radial-gradient(40rem 30rem at 10% 10%, rgba(255,106,0,.22), transparent 60%);
-      transform: translateY(-4vh); animation: drift 28s ease-in-out infinite alternate;
+        radial-gradient(1100px 700px at 120% -10%, rgba(255,122,26,.25), transparent 60%),
+        radial-gradient(800px 500px at -10% 110%, rgba(255,122,26,.16), transparent 60%),
+        linear-gradient(180deg, var(--bg-2), var(--bg));
+      font:16px/1.65 "Patrick Hand", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      overflow-x:hidden; display:flex; min-height:100dvh; flex-direction:column;
     }
-    @keyframes drift{to{transform:translateY(4vh)}}
 
-    canvas#net{position:fixed; inset:0; z-index:1; opacity:.35; mix-blend-mode:multiply}
+    /* background (optional svg) placeholder */
+    .bg{position:fixed; inset:0; z-index:0; pointer-events:none}
 
-    /* ===== Layout ===== */
-    .wrap{position:relative; z-index:2}
-    header.site{position:sticky; top:0; z-index:5; backdrop-filter:saturate(130%) blur(8px);
-      background:linear-gradient(180deg, var(--glass-strong), rgba(255,255,255,.35)); border-bottom:1px solid var(--glass-border)}
-    .nav{max-width:1120px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:10px 16px}
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
-    .brand-dot{width:14px; height:14px; border-radius:6px; background:conic-gradient(from 0deg, var(--brand), var(--brand-2)); box-shadow:0 0 0 6px rgba(245,158,11,.18)}
-    .links{display:flex; gap:16px}
-    .links a{color:var(--ink); text-decoration:none; font-weight:700; opacity:.9}
-    .links a:hover{opacity:1}
+    /* lanyard block */
+    .lanyard-wrap{position: fixed; top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); width: min(360px, 34vw); z-index: 3; pointer-events:none}
+    .swing{position:relative; width:100%; transform-origin: top center; animation: swing 6s ease-in-out infinite; pointer-events:auto}
+    @keyframes swing{ 0%,100%{ transform: rotate(2deg) } 50%{ transform: rotate(-2deg) } }
+    .strap{position:absolute; top:-6px; left:50%; transform:translateX(-50%); width:14px; height: 26%; background: linear-gradient(180deg, #000, #111); border-radius: 10px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 18px 28px rgba(0,0,0,.25)}
+    .clip{position:absolute; left:50%; top:26%; transform:translate(-50%,-50%); width:38px; height:28px; border-radius:6px; background: linear-gradient(180deg, #d9dde3, #b6bcc6); box-shadow: 0 6px 18px rgba(0,0,0,.25), inset 0 0 0 1px #8d94a1; display:grid; place-items:center}
+    .ring{width:16px; height:16px; border-radius:50%; border:2px solid #7f8795; box-shadow: inset 0 0 0 1px #aab1bd; background: #e7eaf0}
 
-    /* top static action icons */
-    .actions{display:flex; gap:10px}
-    .icon-btn{position:relative; display:grid; place-items:center; width:42px; height:42px; border-radius:12px; background:#0e0e0e; border:1px solid rgba(255,255,255,.12); cursor:pointer}
-    .icon-btn:hover{background:#000}
-    .icon-btn svg{width:22px; height:22px; stroke:#fff}
-    .pop{position:absolute; left:50%; bottom:-8px; transform:translate(-50%, 100%); background:rgba(0,0,0,.9); color:#fff; padding:8px 10px; border-radius:10px; border:1px solid rgba(255,255,255,.12); white-space:nowrap; pointer-events:none; opacity:0}
-    .pop.show{animation:fadePop .16s ease-out forwards}
-    @keyframes fadePop{from{opacity:0; transform:translate(-50%,120%) scale(.98)} to{opacity:1; transform:translate(-50%,100%) scale(1)}}
+    .idcard{position:absolute; left:50%; top:calc(26% + 18px); transform:translateX(-50%); width: clamp(260px, 78%, 360px); background: var(--card-bg); border:1px solid var(--card-stroke); border-radius: 18px; backdrop-filter: blur(var(--backdrop-blur)) saturate(1.1); -webkit-backdrop-filter: blur(var(--backdrop-blur)) saturate(1.1); box-shadow: var(--shadow); overflow:hidden; display:flex; flex-direction:column; padding-bottom: 12px}
+    .idcard::after{content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; box-shadow: inset 0 0 0 1px var(--card-inner)}
+    .photo{margin:12px 12px 8px 12px; border-radius:14px; overflow:hidden; background:linear-gradient(135deg,#1d2430,#12171f); box-shadow: 0 16px 28px rgba(0,0,0,.22); aspect-ratio: 5/6; display:grid; place-items:center; color:#99a0aa; font: 600 14px/1.2 system-ui}
 
-    section{min-height:92vh; display:grid; place-items:center; position:relative; padding:var(--pad) 16px}
-    .container{max-width:1080px; width:100%}
+    .card-social{margin: 6px 12px 0; background: rgba(12,17,24,.72); border:1px solid var(--card-stroke); border-radius: 14px; padding: 10px 12px}
+    .icons{ display:flex; gap:12px; align-items:center; justify-content:center }
+    .icon{ width:44px; height:44px; display:grid; place-items:center; border-radius:12px; background:#111; border:1px solid #222; box-shadow: 0 10px 22px rgba(0,0,0,.35); transition: transform .25s ease, box-shadow .25s ease }
+    .icon svg{ width:22px; height:22px; fill:var(--tone) }
+    .icon:hover{ transform: translateY(-4px) scale(1.03); box-shadow: 0 14px 28px rgba(0,0,0,.45) }
 
-    /* ===== Page 1 (Hero + Overview) ===== */
-    .hero-card{display:grid; grid-template-columns: 1.1fr .9fr; gap:var(--gap); align-items:center; padding:22px; border:1px solid var(--glass-border); border-radius:var(--radius-xl);
-      background:linear-gradient(180deg, var(--glass-strong), var(--glass)); box-shadow:0 10px 32px var(--shadow)}
-    @media (max-width: 980px){ .hero-card{grid-template-columns:1fr} }
+    /* main card */
+    .stage{ position:relative; z-index:1; display:grid; place-items:center; padding: var(--space) 18px; flex:1 }
+    .card{ position:relative; width:min(860px, 92vw); background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.06)); backdrop-filter: blur(var(--backdrop-blur)) saturate(1.1); -webkit-backdrop-filter: blur(var(--backdrop-blur)) saturate(1.1); border:1px solid var(--card-stroke); border-radius:var(--radius); box-shadow:var(--shadow); padding: clamp(22px, 3.6vw, 34px) clamp(18px, 3.6vw, 32px) clamp(20px, 3vw, 28px); text-align:center; overflow:hidden }
+    .card::after{ content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; box-shadow: inset 0 0 0 1px var(--card-inner) }
 
-    .title{font-size: clamp(32px, 5vw, 56px); line-height:1.05; margin:0}
-    .subtitle{font-size: clamp(14px, 2.1vw, 18px); color:var(--muted); margin:8px 0 16px}
+    .intro-head{ display:grid; gap:10px; justify-items:center; margin-bottom:8px }
 
-    .cta-row{display:flex; gap:12px; flex-wrap:wrap}
-    .btn{position:relative; display:inline-grid; grid-auto-flow:column; align-items:center; gap:10px; padding:11px 15px; border-radius:14px; border:1px solid var(--glass-border);
-      text-decoration:none; color:#fff; font-weight:800; letter-spacing:.3px; background:linear-gradient(90deg, #111111, #232323 40%, var(--brand-2) 100%); box-shadow:0 6px 16px rgba(0,0,0,.10); transition:transform .18s ease, box-shadow .18s ease; overflow:hidden}
-    .btn:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(0,0,0,.14)}
-    .btn .spark{position:absolute; inset:0; pointer-events:none; background:radial-gradient(110px 55px at var(--x,-20%) var(--y,50%), rgba(255,255,255,.35), transparent 40%)}
+    /* Animated name with yellow swipe (from your ref) */
+    h1.name{ margin:0; font-family:"Caveat", system-ui; font-weight:700; font-size: clamp(40px, 8vw, 76px); line-height:1.02; letter-spacing:.2px; position:relative; color:var(--tone-2); text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000; transform: translateY(6px); opacity:0; animation: fadeUp .7s cubic-bezier(.2,.7,.2,1) .05s forwards }
+    .name .swipe{ position:relative; display:inline-block; padding:0 .25em; color:#fff }
+    .name .swipe::before{ content:""; position:absolute; inset:auto 0 .1em 0; height:.6em; z-index:-1; background: linear-gradient(90deg, rgba(255,210,0,.38), rgba(255,210,0,.85)); border-radius:8px; transform-origin:left center; transform: scaleX(0); animation: swipeIn .9s cubic-bezier(.2,.7,.2,1) .25s forwards }
 
-    .glass{background:linear-gradient(180deg, var(--glass-strong), var(--glass)); border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:18px; box-shadow:0 10px 26px var(--shadow)}
-    .tag{display:inline-block; font-size:12px; font-weight:800; letter-spacing:.3px; color:#111; background:linear-gradient(90deg, rgba(245,158,11,.18), rgba(255,106,0,.18)); padding:6px 10px; border-radius:999px; border:1px solid rgba(245,158,11,.35)}
+    .title-line{ font-family:"Patrick Hand", system-ui; font-weight:600; font-size: clamp(18px, 2.2vw, 22px); line-height:1.5; color: var(--muted); letter-spacing:.2px; margin: 0; text-align: center }
 
-    /* ===== Page 2 (Experience + Skills condensed) ===== */
-    .grid{display:grid; gap:var(--gap)}
-    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    @media (max-width: 900px){ .grid.cols-2{grid-template-columns:1fr} }
-    .timeline{position:relative; padding-left:24px}
-    .timeline::before{content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background:linear-gradient(var(--brand), transparent)}
-    .item{position:relative; margin:12px 0; padding:12px; border-radius:14px; background:#fff; border:1px solid var(--glass-border); box-shadow:0 8px 20px rgba(0,0,0,.05)}
-    .item::before{content:""; position:absolute; left:-7px; top:14px; width:10px; height:10px; border-radius:6px; background:var(--brand-2); box-shadow:0 0 0 6px rgba(255,106,0,.18)}
-    .skill{display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; border:1px dashed rgba(0,0,0,.08); background:#fff}
-    .skill b{font-weight:800}
+    .intro-wrap{ max-width: 72ch; margin: 12px auto 0; text-align: left }
+    .intro-body .line{ font-family:"Patrick Hand", system-ui; font-size: clamp(18px, 2.1vw, 21px); line-height:1.75; color:var(--ink); margin: clamp(8px, 1.2vw, 14px) 0; transform: translateY(8px); opacity:0; animation: fadeUp .6s cubic-bezier(.2,.7,.2,1) forwards }
+    .intro-body .line:nth-child(1){ animation-delay:.30s }
+    .intro-body .line:nth-child(2){ animation-delay:.42s }
+    .intro-body .line:nth-child(3){ animation-delay:.54s }
 
-    /* Scroll reveal */
-    .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease}
-    .reveal.show{opacity:1; transform:none}
+    @keyframes fadeUp{ from{ transform: translateY(12px); opacity:0 } to{ transform: translateY(0); opacity:1 } }
+    @keyframes swipeIn{ to{ transform: scaleX(1) } }
+
+    .cta-row{ display:flex; justify-content:center; flex-wrap:wrap; gap:12px; align-items:center; margin-top:18px }
+    .btn{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:14px; text-decoration:none; color:#111; background:#fff; border:1px solid rgba(255,255,255,.35); box-shadow: 0 16px 32px rgba(255,122,26,.26); transition: transform .15s ease, box-shadow .25s ease; font: 700 16px/1.1 system-ui, -apple-system; position:relative; overflow:hidden }
+    .btn:hover{ transform:translateY(-2px); box-shadow:0 20px 36px rgba(255,122,26,.32) }
+    .btn .glow{ position:absolute; inset:0; background:radial-gradient(140px 70px at var(--x,-20%) var(--y,50%), rgba(255,255,255,.35), transparent 45%); pointer-events:none }
+
+    /* footer */
+    .site-footer{ position:relative; z-index:1; padding: 12px 16px; padding-bottom: calc(12px + env(safe-area-inset-bottom)); text-align:center; font-size: 13px; color: rgba(229,231,235,.65); background: rgba(255,255,255,.04); border-top: 1px solid var(--card-stroke); backdrop-filter: blur(var(--backdrop-blur)) saturate(1.05); -webkit-backdrop-filter: blur(var(--backdrop-blur)) saturate(1.05) }
+    .site-footer a{ color: inherit; text-underline-offset: 2px }
+
+    @media (max-width: 900px){
+      .lanyard-wrap{ position: relative; top: auto; right: auto; width: 100%; max-width: none; display: grid; place-items: center; pointer-events: auto; z-index: 2; margin: 10px 0 10px }
+      .swing{ width: min(420px, 86vw) }
+      .stage{ padding-top: 0; z-index: 1 }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .swing{ animation:none }
+      h1.name{ animation:none; transform:none; opacity:1 }
+      .name .swipe::before{ transform:none }
+      .intro-body .line{ animation:none; transform:none; opacity:1 }
+      .btn .glow{ display:none }
+    }
   </style>
 </head>
 <body>
-  <div class="stripes" aria-hidden="true"></div>
-  <canvas id="net" aria-hidden="true"></canvas>
+  <!-- Lanyard with card & contact icons (same pattern as your reference) -->
+  <aside class="lanyard-wrap" aria-label="Lanyard with ID card">
+    <div class="swing">
+      <div class="strap" aria-hidden="true"></div>
+      <div class="clip"><div class="ring" aria-hidden="true"></div></div>
 
-  <div class="wrap">
-    <!-- Sticky header with static icons on the top -->
-    <header class="site">
-      <nav class="nav">
-        <div class="brand"><span class="brand-dot"></span> <span>Chekutty Sumanth Yadav</span></div>
-        <div class="links">
-          <a href="#home">Home</a>
-          <a href="#work">Experience & Skills</a>
+      <section class="idcard" aria-label="Profile ID card">
+        <div class="photo">Your photo here</div>
+        <div class="card-social">
+          <nav class="icons" aria-label="Social links">
+            <a class="icon" href="mailto:Chekuttysumanth.yadav@gmail.com" target="_blank" rel="noopener" aria-label="Email Sumanth">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4C2.895 4 2 4.895 2 6v12c0 1.105.895 2 2 2h16c1.105 0 2-.895 2-2V6c0-1.105-.895-2-2-2Zm0 2-8 5L4 6h16ZM4 18V8l8 5 8-5v10H4Z"/></svg>
+            </a>
+            <a class="icon" href="https://linkedin.com/in/sumanth-yadav-chekutty-313a3a21b" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M4.983 3.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM3 9h3.966V21H3V9Zm7.334 0H14.1v1.639h.048c.53-.972 1.83-1.996 3.768-1.996C21.1 8.643 22 11.1 22 14.23V21h-3.967v-6.06c0-1.445-.026-3.304-2.014-3.304-2.018 0-2.327 1.58-2.327 3.205V21H9.334V9Z"/></svg>
+            </a>
+            <a class="icon" href="tel:+919182916996" aria-label="Call Sumanth">
+              <svg viewBox="0 0 24 24"><path d="M6.6 10.7a15.1 15.1 0 0 0 6.7 6.7l2.2-2.2a1.5 1.5 0 0 1 1.6-.36c1.7.57 3.6.88 5 .88a1.5 1.5 0 0 1 1.5 1.5V21a1.5 1.5 0 0 1-1.5 1.5C11.6 22.5 1.5 12.4 1.5 3A1.5 1.5 0 0 1 3 1.5H6.5A1.5 1.5 0 0 1 8 3c0 1.4.31 3.3.88 5a1.5 1.5 0 0 1-.36 1.6l-2 2.1Z"/></svg>
+            </a>
+          </nav>
         </div>
-        <div class="actions">
-          <!-- Email icon: pop bubble -->
-          <button class="icon-btn" id="emailBtn" aria-label="Email">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-            <span class="pop" id="pop-email">Chekuttysumanth.yadav@gmail.com • click to copy</span>
-          </button>
-          <!-- LinkedIn icon: direct link -->
-          <a class="icon-btn" id="inBtn" href="https://linkedin.com/in/sumanth-yadav-chekutty-313a3a21b" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 17V10"/><circle cx="8" cy="7" r="1.2"/><path d="M12 17v-4a3 3 0 0 1 6 0v4"/></svg>
-          </a>
-          <!-- Phone icon: pop bubble -->
-          <button class="icon-btn" id="telBtn" aria-label="Phone">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v2.6a2 2 0 0 1-2.3 2 19.8 19.8 0 0 1-8.5-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.5 2 2 0 0 1 2-2.3h2.6a2 2 0 0 1 2 1.6c.12.8.33 1.6.63 2.3a2 2 0 0 1-.47 2.1l-1.3 1.5a16 16 0 0 0 6 6l1.5-1.3a2 2 0 0 1 2.1-.47c.7.3 1.5.5 2.3.63a2 2 0 0 1 1.6 2z"/></svg>
-            <span class="pop" id="pop-tel">+91 91829 16996 • tap to call</span>
-          </button>
-        </div>
-      </nav>
-    </header>
+      </section>
+    </div>
+  </aside>
 
-    <!-- ===== PAGE 1: Hero + Overview ===== -->
-    <section id="home">
-      <div class="container">
-        <div class="hero-card reveal">
-          <div>
-            <h1 class="title">Salesforce Systems Engineer</h1>
-            <p class="subtitle">SFDX • Git • CI/CD • Flow Builder • Governance</p>
-            <div class="cta-row">
-              <!-- Replaced "Get in touch" with resume button only, icons live in header -->
-              <a class="btn" id="dl" href="sandbox:/mnt/data/bobby resume PDF.pdf" download="Chekutty_Sumanth_Yadav_Resume.pdf" aria-label="Download resume">
-                <span class="spark"></span>
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                <span>Download Resume</span>
-              </a>
-            </div>
-          </div>
-          <div class="glass">
-            <span class="tag">Professional Overview</span>
-            <p style="margin:10px 0 0; line-height:1.7">Over 3 years’ experience managing Salesforce environments across Dev, UAT, and Production. Passionate about clean deployments, metadata integrity, and automation using SFDX, Git, and CI/CD. Strong in Flow Builder and collaborating with agile teams to elevate quality and speed.</p>
-          </div>
-        </div>
+  <!-- main content (structure matches your reference: name → title → intro) -->
+  <div class="stage">
+    <article class="card" aria-label="Intro">
+      <header class="intro-head">
+        <h1 class="name">I’m <span class="swipe">Chekutty Sumanth Yadav</span></h1>
+        <p class="title-line">Salesforce Systems Engineer — S&P Global</p>
+      </header>
+
+      <div class="intro-wrap">
+        <section class="intro-body" aria-label="About">
+          <p class="line">With more than three years steering Salesforce environments, I’ve become the digital equivalent of an air traffic controller—directing data, workflows, and innovation so everything lands smoothly, no matter how busy the cloud gets. From SFDX CLI and Git to the magic of Flow Builder, my approach blends technical mastery with a keen eye for detail, ensuring metadata integrity and operational harmony are never left up in the air.</p>
+          <p class="line">I thrive on raising the performance bar—optimizing platforms, fueling agile teamwork, and introducing improvements with the enthusiasm of someone who genuinely enjoys a challenge. For me, collaboration is more than a checkbox, and continuous improvement isn’t just a boardroom buzzword; it’s the engine that keeps things moving forward, with just the right dose of humor to keep spirits high when deadlines loom.</p>
+        </section>
       </div>
-    </section>
 
-    <!-- ===== PAGE 2: Experience + Skills (condensed into one page) ===== -->
-    <section id="work">
-      <div class="container grid cols-2">
-        <div class="glass reveal">
-          <span class="tag">Recent Role</span>
-          <h2 style="margin:8px 0 12px">Systems Engineer – S&P Global</h2>
-          <div class="timeline">
-            <div class="item">Supported Dev, UAT, and Prod environments ensuring SDLC consistency and safe, trackable deployments with SFDX + Git (rollback‑ready).</div>
-            <div class="item">Built and assisted CI/CD pipelines (Jenkins, GitHub Actions) to automate validation, testing, and deployments.</div>
-            <div class="item">Tuned integrations and performance by monitoring API limits, debug logs, and event dashboards.</div>
-            <div class="item">Configured custom objects, validation rules, record types, and layouts aligned to business needs.</div>
-            <div class="item">Flows for approvals/notifications; managed change sets & unlocked packages; administered users, roles, profiles, and permission sets.</div>
-          </div>
-        </div>
-        <div class="glass reveal">
-          <span class="tag">Core Skills</span>
-          <div class="grid" style="margin-top:10px">
-            <div class="skill"><b>SFDX CLI</b> • Metadata API • DX Projects</div>
-            <div class="skill"><b>Git</b> • Branching • PR reviews</div>
-            <div class="skill"><b>CI/CD</b> • Jenkins • GitHub Actions</div>
-            <div class="skill"><b>Flow Builder</b> • Record Triggers</div>
-            <div class="skill">Profiles • Permission Sets • Roles</div>
-            <div class="skill">Reports • Dashboards</div>
-            <div class="skill">REST/SOAP APIs • Named Credentials</div>
-            <div class="skill">Monitoring • Debug Logs • Limits</div>
-          </div>
-        </div>
+      <div class="cta-row">
+        <a class="btn" href="sandbox:/mnt/data/bobby resume PDF.pdf" download="Chekutty_Sumanth_Yadav_Resume.pdf" aria-label="Download Resume as PDF">
+          <span class="glow"></span>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#111" d="M12 3a1 1 0 0 1 1 1v8.586l2.293-2.293a1 1 0 1 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4A1 1 0 1 1 8.707 10.293L11 12.586V4a1 1 0 0 1 1-1z"/><path fill="#555" d="M5 17a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg>
+          download resume
+        </a>
       </div>
-    </section>
+    </article>
   </div>
 
+  <footer class="site-footer" aria-label="Site footer">
+    <span>© <span id="year"></span> Chekutty Sumanth Yadav. All rights reserved.</span>
+  </footer>
+
   <script>
-    // Spark follow for resume button
-    const dl = document.getElementById('dl');
-    const spark = dl.querySelector('.spark');
-    dl.addEventListener('pointermove', (e)=>{
-      const r = dl.getBoundingClientRect();
-      spark.style.setProperty('--x', ((e.clientX - r.left)/r.width*100)+'%');
-      spark.style.setProperty('--y', ((e.clientY - r.top)/r.height*100)+'%');
+    // set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // button glow follows pointer
+    const btn = document.querySelector('.btn');
+    const glow = btn.querySelector('.glow');
+    btn.addEventListener('pointermove', e => {
+      const r = btn.getBoundingClientRect();
+      glow.style.setProperty('--x', ((e.clientX - r.left) / r.width * 100) + '%');
+      glow.style.setProperty('--y', ((e.clientY - r.top) / r.height * 100) + '%');
     });
-
-    // Reveal on scroll
-    const io = new IntersectionObserver((entries)=>{
-      for(const entry of entries){ if(entry.isIntersecting){ entry.target.classList.add('show'); io.unobserve(entry.target);} }
-    }, { threshold:.14 });
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-    // Background network
-    const c = document.getElementById('net');
-    const ctx = c.getContext('2d');
-    let W,H,P=[]; function size(){ W=c.width=innerWidth; H=c.height=innerHeight; build(); }
-    addEventListener('resize', size);
-    function build(){ const n = Math.min(130, Math.floor((W*H)/20000)); P = Array.from({length:n},()=>({x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.45, vy:(Math.random()-.5)*.45})); }
-    function step(){ ctx.clearRect(0,0,W,H); const g = ctx.createLinearGradient(0,0,W,H); g.addColorStop(0,'rgba(245,158,11,.06)'); g.addColorStop(1,'rgba(0,0,0,0)'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-      for(const p of P){ p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>W) p.vx*=-1; if(p.y<0||p.y>H) p.vy*=-1; }
-      for(let i=0;i<P.length;i++){ const a=P[i]; for(let j=i+1;j<P.length;j++){ const b=P[j]; const dx=a.x-b.x, dy=a.y-b.y; const d=Math.hypot(dx,dy); if(d<130){ const o=1-(d/130); ctx.strokeStyle=`rgba(17,17,17,${o*.12})`; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); } } }
-      for(const p of P){ ctx.fillStyle='rgba(0,0,0,.14)'; ctx.beginPath(); ctx.arc(p.x,p.y,1.1,0,Math.PI*2); ctx.fill(); }
-      requestAnimationFrame(step);
-    }
-    size(); step();
-
-    // Email & Phone pop bubbles (click to open, click-away to close). Also copy email on click.
-    const emailBtn = document.getElementById('emailBtn');
-    const telBtn = document.getElementById('telBtn');
-    const popEmail = document.getElementById('pop-email');
-    const popTel = document.getElementById('pop-tel');
-
-    function togglePop(btn, pop){
-      // hide others
-      [popEmail, popTel].forEach(p=>{ if(p!==pop) p.classList.remove('show'); });
-      pop.classList.toggle('show');
-    }
-
-    emailBtn.addEventListener('click', (e)=>{
-      e.stopPropagation(); togglePop(emailBtn, popEmail);
-      // copy email to clipboard when bubble becomes visible
-      if(popEmail.classList.contains('show')){
-        navigator.clipboard && navigator.clipboard.writeText('Chekuttysumanth.yadav@gmail.com').catch(()=>{});
-      }
-    });
-
-    telBtn.addEventListener('click', (e)=>{ e.stopPropagation(); togglePop(telBtn, popTel); });
-
-    // click-away to close
-    document.addEventListener('click', ()=>{ popEmail.classList.remove('show'); popTel.classList.remove('show'); });
-
-    // also close on escape
-    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ popEmail.classList.remove('show'); popTel.classList.remove('show'); } });
-
-    // clicking inside bubbles should not propagate
-    [popEmail, popTel].forEach(pop=> pop.addEventListener('click', (e)=> e.stopPropagation()));
-
-    // optional: clicking phone bubble initiates call
-    popTel.addEventListener('click', ()=>{ window.location.href='tel:+919182916996'; });
   </script>
 </body>
 </html>
