@@ -4,122 +4,94 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Chekutty Sumanth Yadav – Interactive Resume</title>
-  <meta name="description" content="Free‑flowing, animated, glass‑theme resume site for Chekutty Sumanth Yadav" />
+  <meta name="description" content="Two‑page, animated, glass‑theme resume site (yellow/orange/black) for Chekutty Sumanth Yadav" />
   <style>
     :root{
-      /* White / Orange / Black theme */
+      /* Yellow / Orange / Black theme */
       --bg: #ffffff;
-      --ink: #0b0f14;         /* near‑black text */
-      --muted: #4b5563;       /* subdued */
-      --brand: #ff6a00;       /* vivid orange */
-      --brand-2: #ff9a3c;     /* soft orange */
-      --glass: rgba(255,255,255,.6);
-      --glass-strong: rgba(255,255,255,.85);
-      --glass-border: rgba(17,17,17,.08);
-      --shadow: rgba(0,0,0,.08);
-      --radius-lg: 22px;
-      --radius-xl: 28px;
-      --pad: 60px;            /* global section padding (tighter than before) */
-      --gap: 14px;            /* tighter gaps */
+      --ink: #0b0f14;           /* near‑black text */
+      --muted: #4b5563;         /* subdued */
+      --brand: #f59e0b;         /* amber */
+      --brand-2: #ff6a00;       /* orange */
+      --glass: rgba(255,255,255,.65);
+      --glass-strong: rgba(255,255,255,.88);
+      --glass-border: rgba(17,17,17,.10);
+      --shadow: rgba(0,0,0,.10);
+      --radius-lg: 20px; --radius-xl: 26px;
+      --pad: 56px; --gap: 14px;
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
     html{scroll-behavior:smooth}
-    body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-      color:var(--ink); background:var(--bg); overflow-x:hidden;
-    }
+    body{margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; color:var(--ink); background:var(--bg); overflow-x:hidden}
 
-    /* ====== Background: parallax stripes + particles ====== */
+    /* ===== Background accents (subtle) ===== */
     .stripes{position:fixed; inset:-10vmax 0 auto 0; height: 120vh; pointer-events:none; z-index:0;
       background:
-        linear-gradient(110deg, transparent 0 55%, rgba(0,0,0,.025) 55% 56%, transparent 56% 62%, rgba(0,0,0,.02) 62% 63%, transparent 63% 100%),
-        radial-gradient(60rem 40rem at 80% -10%, rgba(255,106,0,.20), transparent 60%),
-        radial-gradient(40rem 30rem at 10% 10%, rgba(255,154,60,.18), transparent 60%);
-      transform: translateY(-4vh);
-      animation: drift 28s ease-in-out infinite alternate;
+        linear-gradient(110deg, transparent 0 55%, rgba(0,0,0,.03) 55% 56%, transparent 56% 62%, rgba(0,0,0,.025) 62% 63%, transparent 63% 100%),
+        radial-gradient(60rem 40rem at 85% -10%, rgba(245,158,11,.25), transparent 60%),
+        radial-gradient(40rem 30rem at 10% 10%, rgba(255,106,0,.22), transparent 60%);
+      transform: translateY(-4vh); animation: drift 28s ease-in-out infinite alternate;
     }
     @keyframes drift{to{transform:translateY(4vh)}}
 
     canvas#net{position:fixed; inset:0; z-index:1; opacity:.35; mix-blend-mode:multiply}
 
-    /* ====== Layout ====== */
+    /* ===== Layout ===== */
     .wrap{position:relative; z-index:2}
     header.site{position:sticky; top:0; z-index:5; backdrop-filter:saturate(130%) blur(8px);
-      background:linear-gradient(180deg, var(--glass-strong), rgba(255,255,255,.35));
-      border-bottom:1px solid var(--glass-border);
-    }
-    .nav{max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:10px 18px}
+      background:linear-gradient(180deg, var(--glass-strong), rgba(255,255,255,.35)); border-bottom:1px solid var(--glass-border)}
+    .nav{max-width:1120px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:10px 16px}
     .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
-    .brand-dot{width:12px; height:12px; border-radius:6px; background:conic-gradient(from 0deg, var(--brand), var(--brand-2)); box-shadow:0 0 0 6px rgba(255,106,0,.12)}
-    .nav a{color:var(--ink); text-decoration:none; font-weight:600; opacity:.85}
-    .nav a:hover{opacity:1}
+    .brand-dot{width:14px; height:14px; border-radius:6px; background:conic-gradient(from 0deg, var(--brand), var(--brand-2)); box-shadow:0 0 0 6px rgba(245,158,11,.18)}
     .links{display:flex; gap:16px}
+    .links a{color:var(--ink); text-decoration:none; font-weight:700; opacity:.9}
+    .links a:hover{opacity:1}
 
-    section{min-height:85vh; display:grid; place-items:center; position:relative; padding:var(--pad) 18px}
+    /* top static action icons */
+    .actions{display:flex; gap:10px}
+    .icon-btn{position:relative; display:grid; place-items:center; width:42px; height:42px; border-radius:12px; background:#0e0e0e; border:1px solid rgba(255,255,255,.12); cursor:pointer}
+    .icon-btn:hover{background:#000}
+    .icon-btn svg{width:22px; height:22px; stroke:#fff}
+    .pop{position:absolute; left:50%; bottom:-8px; transform:translate(-50%, 100%); background:rgba(0,0,0,.9); color:#fff; padding:8px 10px; border-radius:10px; border:1px solid rgba(255,255,255,.12); white-space:nowrap; pointer-events:none; opacity:0}
+    .pop.show{animation:fadePop .16s ease-out forwards}
+    @keyframes fadePop{from{opacity:0; transform:translate(-50%,120%) scale(.98)} to{opacity:1; transform:translate(-50%,100%) scale(1)}}
+
+    section{min-height:92vh; display:grid; place-items:center; position:relative; padding:var(--pad) 16px}
     .container{max-width:1080px; width:100%}
 
-    /* ====== Hero ====== */
-    .hero-card{display:grid; grid-template-columns: 1.15fr .85fr; gap:var(--gap); align-items:center; padding:22px; border:1px solid var(--glass-border); border-radius:var(--radius-xl);
+    /* ===== Page 1 (Hero + Overview) ===== */
+    .hero-card{display:grid; grid-template-columns: 1.1fr .9fr; gap:var(--gap); align-items:center; padding:22px; border:1px solid var(--glass-border); border-radius:var(--radius-xl);
       background:linear-gradient(180deg, var(--glass-strong), var(--glass)); box-shadow:0 10px 32px var(--shadow)}
     @media (max-width: 980px){ .hero-card{grid-template-columns:1fr} }
 
-    .title{font-size: clamp(32px, 5vw, 52px); line-height:1.05; margin:0}
+    .title{font-size: clamp(32px, 5vw, 56px); line-height:1.05; margin:0}
     .subtitle{font-size: clamp(14px, 2.1vw, 18px); color:var(--muted); margin:8px 0 16px}
 
     .cta-row{display:flex; gap:12px; flex-wrap:wrap}
     .btn{position:relative; display:inline-grid; grid-auto-flow:column; align-items:center; gap:10px; padding:11px 15px; border-radius:14px; border:1px solid var(--glass-border);
-      text-decoration:none; color:var(--ink); font-weight:700; letter-spacing:.3px; background:#fff; box-shadow:0 6px 16px rgba(0,0,0,.06); transition:transform .18s ease, box-shadow .18s ease}
-    .btn:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(0,0,0,.08)}
-
-    .btn.primary{background:linear-gradient(90deg, #111111, #232323 40%, var(--brand) 100%); color:#fff; border-color:rgba(255,255,255,.15); overflow:hidden}
-    .btn.primary .spark{position:absolute; inset:0; pointer-events:none; background:radial-gradient(110px 55px at var(--x,-20%) var(--y,50%), rgba(255,255,255,.35), transparent 40%)}
-    .btn.primary .pulse{position:absolute; inset:-2px; border-radius:16px; box-shadow:0 0 0 0 rgba(255,255,255,.45); animation:pulse 2.2s infinite}
-    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.45)} 70%{box-shadow:0 0 0 16px rgba(255,255,255,0)} 100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
-
-    /* ====== Sections ====== */
-    .grid{display:grid; gap:var(--gap)}
-    .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    @media (max-width: 900px){ .grid.cols-3,.grid.cols-2{grid-template-columns:1fr} }
+      text-decoration:none; color:#fff; font-weight:800; letter-spacing:.3px; background:linear-gradient(90deg, #111111, #232323 40%, var(--brand-2) 100%); box-shadow:0 6px 16px rgba(0,0,0,.10); transition:transform .18s ease, box-shadow .18s ease; overflow:hidden}
+    .btn:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(0,0,0,.14)}
+    .btn .spark{position:absolute; inset:0; pointer-events:none; background:radial-gradient(110px 55px at var(--x,-20%) var(--y,50%), rgba(255,255,255,.35), transparent 40%)}
 
     .glass{background:linear-gradient(180deg, var(--glass-strong), var(--glass)); border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:18px; box-shadow:0 10px 26px var(--shadow)}
+    .tag{display:inline-block; font-size:12px; font-weight:800; letter-spacing:.3px; color:#111; background:linear-gradient(90deg, rgba(245,158,11,.18), rgba(255,106,0,.18)); padding:6px 10px; border-radius:999px; border:1px solid rgba(245,158,11,.35)}
 
-    .tag{display:inline-block; font-size:12px; font-weight:800; letter-spacing:.3px; color:#111; background:linear-gradient(90deg, rgba(255,106,0,.15), rgba(255,154,60,.18)); padding:6px 10px; border-radius:999px; border:1px solid rgba(255,106,0,.25)}
-
+    /* ===== Page 2 (Experience + Skills condensed) ===== */
+    .grid{display:grid; gap:var(--gap)}
+    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media (max-width: 900px){ .grid.cols-2{grid-template-columns:1fr} }
+    .timeline{position:relative; padding-left:24px}
+    .timeline::before{content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background:linear-gradient(var(--brand), transparent)}
+    .item{position:relative; margin:12px 0; padding:12px; border-radius:14px; background:#fff; border:1px solid var(--glass-border); box-shadow:0 8px 20px rgba(0,0,0,.05)}
+    .item::before{content:""; position:absolute; left:-7px; top:14px; width:10px; height:10px; border-radius:6px; background:var(--brand-2); box-shadow:0 0 0 6px rgba(255,106,0,.18)}
     .skill{display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; border:1px dashed rgba(0,0,0,.08); background:#fff}
     .skill b{font-weight:800}
 
-    /* ====== Timeline ====== */
-    .timeline{position:relative; padding-left:24px}
-    .timeline::before{content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background:linear-gradient(var(--brand), transparent)}
-    .item{position:relative; margin:14px 0; padding:14px; border-radius:14px; background:#fff; border:1px solid var(--glass-border); box-shadow:0 8px 20px rgba(0,0,0,.05)}
-    .item::before{content:""; position:absolute; left:-7px; top:16px; width:10px; height:10px; border-radius:6px; background:var(--brand); box-shadow:0 0 0 6px rgba(255,106,0,.18)}
-
-    /* ====== Footer / contact bar ====== */
-    .contact-bar{position:sticky; bottom:0; z-index:4; padding:10px; display:flex; justify-content:center}
-    .contact-inner{display:flex; gap:10px; background:#111; color:#fff; border-radius:16px; padding:8px 10px; box-shadow:0 10px 24px rgba(0,0,0,.2)}
-
-    /* Modern minimal icon buttons */
-    .icon-btn{position:relative; display:grid; place-items:center; width:44px; height:44px; border-radius:12px; background:#1a1a1a; border:1px solid rgba(255,255,255,.12); cursor:pointer}
-    .icon-btn:hover{background:#0f0f0f}
-    .icon-btn svg{width:22px; height:22px; stroke:#fff}
-
-    /* Popout info that fades out under the icon */
-    .pop{position:absolute; left:50%; bottom:-8px; transform:translate(-50%, 100%); background:#111; color:#fff; padding:8px 10px; border-radius:10px; border:1px solid rgba(255,255,255,.12); white-space:nowrap; pointer-events:none; opacity:0}
-    .pop.show{animation:fadePop .18s ease-out forwards, hold 2.6s linear .18s, fadeOut .28s ease-in 2.78s forwards}
-    .pop a{color:#fff; text-decoration:underline}
-    @keyframes fadePop{from{opacity:0; transform:translate(-50%,120%) scale(.98)} to{opacity:1; transform:translate(-50%,100%) scale(1)}}
-    @keyframes hold{from{opacity:1} to{opacity:1}}
-    @keyframes fadeOut{to{opacity:0}}
-
-    /* ====== Scroll reveal animations ====== */
+    /* Scroll reveal */
     .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease}
     .reveal.show{opacity:1; transform:none}
-
-    /* section separators (angled) */
-    .slash{position:absolute; inset:auto 0 -1px 0; height:90px; background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.04)); clip-path: polygon(0 0, 100% 35%, 100% 100%, 0% 100%)}
   </style>
 </head>
 <body>
@@ -127,19 +99,34 @@
   <canvas id="net" aria-hidden="true"></canvas>
 
   <div class="wrap">
+    <!-- Sticky header with static icons on the top -->
     <header class="site">
       <nav class="nav">
         <div class="brand"><span class="brand-dot"></span> <span>Chekutty Sumanth Yadav</span></div>
         <div class="links">
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#skills">Skills</a>
-          <a href="#contact">Contact</a>
+          <a href="#home">Home</a>
+          <a href="#work">Experience & Skills</a>
+        </div>
+        <div class="actions">
+          <!-- Email icon: pop bubble -->
+          <button class="icon-btn" id="emailBtn" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span class="pop" id="pop-email">Chekuttysumanth.yadav@gmail.com • click to copy</span>
+          </button>
+          <!-- LinkedIn icon: direct link -->
+          <a class="icon-btn" id="inBtn" href="https://linkedin.com/in/sumanth-yadav-chekutty-313a3a21b" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 17V10"/><circle cx="8" cy="7" r="1.2"/><path d="M12 17v-4a3 3 0 0 1 6 0v4"/></svg>
+          </a>
+          <!-- Phone icon: pop bubble -->
+          <button class="icon-btn" id="telBtn" aria-label="Phone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v2.6a2 2 0 0 1-2.3 2 19.8 19.8 0 0 1-8.5-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.5 2 2 0 0 1 2-2.3h2.6a2 2 0 0 1 2 1.6c.12.8.33 1.6.63 2.3a2 2 0 0 1-.47 2.1l-1.3 1.5a16 16 0 0 0 6 6l1.5-1.3a2 2 0 0 1 2.1-.47c.7.3 1.5.5 2.3.63a2 2 0 0 1 1.6 2z"/></svg>
+            <span class="pop" id="pop-tel">+91 91829 16996 • tap to call</span>
+          </button>
         </div>
       </nav>
     </header>
 
-    <!-- ===== HERO ===== -->
+    <!-- ===== PAGE 1: Hero + Overview ===== -->
     <section id="home">
       <div class="container">
         <div class="hero-card reveal">
@@ -147,12 +134,12 @@
             <h1 class="title">Salesforce Systems Engineer</h1>
             <p class="subtitle">SFDX • Git • CI/CD • Flow Builder • Governance</p>
             <div class="cta-row">
-              <a class="btn primary" id="dl" href="sandbox:/mnt/data/bobby resume PDF.pdf" download="Chekutty_Sumanth_Yadav_Resume.pdf" aria-label="Download resume">
-                <span class="pulse"></span><span class="spark"></span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <!-- Replaced "Get in touch" with resume button only, icons live in header -->
+              <a class="btn" id="dl" href="sandbox:/mnt/data/bobby resume PDF.pdf" download="Chekutty_Sumanth_Yadav_Resume.pdf" aria-label="Download resume">
+                <span class="spark"></span>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 <span>Download Resume</span>
               </a>
-              <a class="btn" href="#contact">Get in touch</a>
             </div>
           </div>
           <div class="glass">
@@ -161,132 +148,41 @@
           </div>
         </div>
       </div>
-      <div class="slash" aria-hidden="true"></div>
     </section>
 
-    <!-- ===== ABOUT ===== -->
-    <section id="about">
+    <!-- ===== PAGE 2: Experience + Skills (condensed into one page) ===== -->
+    <section id="work">
       <div class="container grid cols-2">
         <div class="glass reveal">
-          <span class="tag">Based in Hyderabad</span>
-          <h2 style="margin:8px 0 4px">About</h2>
-          <p style="margin:0; line-height:1.75">I optimize Salesforce orgs with robust governance, reliable deployments, and thoughtful automation. I focus on platform performance, API monitoring, and security with roles, profiles, and permission sets. I love turning complex change into simple, auditable flows.</p>
-        </div>
-        <div class="glass reveal">
-          <span class="tag">Highlights</span>
-          <ul style="margin:10px 0 0 18px; line-height:1.8">
-            <li>CI/CD with Jenkins & GitHub Actions</li>
-            <li>Change Sets & Unlocked Packages</li>
-            <li>Flow Builder & Record‑Triggered Flows</li>
-            <li>REST/SOAP APIs, Named Credentials</li>
-            <li>Monitoring: API limits, debug logs, events</li>
-          </ul>
-        </div>
-      </div>
-      <div class="slash" aria-hidden="true"></div>
-    </section>
-
-    <!-- ===== EXPERIENCE ===== -->
-    <section id="experience">
-      <div class="container">
-        <div class="glass reveal">
           <span class="tag">Recent Role</span>
-          <h2 style="margin:8px 0 12px">Systems Engineer – S&P Global (Project Sunrise, MI)</h2>
+          <h2 style="margin:8px 0 12px">Systems Engineer – S&P Global</h2>
           <div class="timeline">
             <div class="item">Supported Dev, UAT, and Prod environments ensuring SDLC consistency and safe, trackable deployments with SFDX + Git (rollback‑ready).</div>
             <div class="item">Built and assisted CI/CD pipelines (Jenkins, GitHub Actions) to automate validation, testing, and deployments.</div>
             <div class="item">Tuned integrations and performance by monitoring API limits, debug logs, and event dashboards.</div>
             <div class="item">Configured custom objects, validation rules, record types, and layouts aligned to business needs.</div>
-            <div class="item">Delivered automated workflows using Flow Builder and record‑triggered flows for approvals/notifications.</div>
-            <div class="item">Managed change sets & unlocked packages; administered users, roles, profiles, and permission sets.</div>
+            <div class="item">Flows for approvals/notifications; managed change sets & unlocked packages; administered users, roles, profiles, and permission sets.</div>
           </div>
         </div>
-      </div>
-      <div class="slash" aria-hidden="true"></div>
-    </section>
-
-    <!-- ===== SKILLS ===== -->
-    <section id="skills">
-      <div class="container grid cols-3">
         <div class="glass reveal">
-          <span class="tag">Core</span>
+          <span class="tag">Core Skills</span>
           <div class="grid" style="margin-top:10px">
             <div class="skill"><b>SFDX CLI</b> • Metadata API • DX Projects</div>
             <div class="skill"><b>Git</b> • Branching • PR reviews</div>
             <div class="skill"><b>CI/CD</b> • Jenkins • GitHub Actions</div>
             <div class="skill"><b>Flow Builder</b> • Record Triggers</div>
-          </div>
-        </div>
-        <div class="glass reveal">
-          <span class="tag">Platform</span>
-          <div class="grid" style="margin-top:10px">
-            <div class="skill">Custom Objects • Validation Rules</div>
             <div class="skill">Profiles • Permission Sets • Roles</div>
             <div class="skill">Reports • Dashboards</div>
-            <div class="skill">Change Sets • Unlocked Packages</div>
-          </div>
-        </div>
-        <div class="glass reveal">
-          <span class="tag">Integrations</span>
-          <div class="grid" style="margin-top:10px">
             <div class="skill">REST/SOAP APIs • Named Credentials</div>
-            <div class="skill">Middleware basics: Zapier, Mulesoft</div>
             <div class="skill">Monitoring • Debug Logs • Limits</div>
-            <div class="skill">Governance • Compliance awareness</div>
           </div>
         </div>
       </div>
-      <div class="slash" aria-hidden="true"></div>
     </section>
-
-    <!-- ===== CONTACT ===== -->
-    <section id="contact">
-      <div class="container glass reveal" style="display:flex; align-items:center; justify-content:space-between; gap:16px">
-        <div>
-          <span class="tag">Contact</span>
-          <p style="margin:10px 0 0">Tap an icon — your details fade out beneath it.</p>
-        </div>
-        <div style="display:flex; gap:12px">
-          <!-- Email icon button -->
-          <button class="icon-btn" data-pop="email" aria-label="Email">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-            <span class="pop" id="pop-email">Chekuttysumanth.yadav@gmail.com • <a href="mailto:Chekuttysumanth.yadav@gmail.com">open</a></span>
-          </button>
-          <!-- LinkedIn icon button -->
-          <button class="icon-btn" data-pop="in" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 17V10"/><circle cx="8" cy="7" r="1.2"/><path d="M12 17v-4a3 3 0 0 1 6 0v4"/></svg>
-            <span class="pop" id="pop-in">linkedin.com/in/sumanth-yadav-chekutty-313a3a21b • <a href="https://linkedin.com/in/sumanth-yadav-chekutty-313a3a21b" target="_blank" rel="noopener">open</a></span>
-          </button>
-          <!-- Phone icon button -->
-          <button class="icon-btn" data-pop="tel" aria-label="Phone">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v2.6a2 2 0 0 1-2.3 2 19.8 19.8 0 0 1-8.5-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.5 2 2 0 0 1 2-2.3h2.6a2 2 0 0 1 2 1.6c.12.8.33 1.6.63 2.3a2 2 0 0 1-.47 2.1l-1.3 1.5a16 16 0 0 0 6 6l1.5-1.3a2 2 0 0 1 2.1-.47c.7.3 1.5.5 2.3.63a2 2 0 0 1 1.6 2z"/></svg>
-            <span class="pop" id="pop-tel">+91 91829 16996 • <a href="tel:+919182916996">call</a></span>
-          </button>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- Sticky minimal icon bar -->
-  <div class="contact-bar">
-    <div class="contact-inner" id="stickyIcons">
-      <button class="icon-btn" data-pop="email2" aria-label="Email (sticky)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-        <span class="pop" id="pop-email2">Chekuttysumanth.yadav@gmail.com • <a href="mailto:Chekuttysumanth.yadav@gmail.com">open</a></span>
-      </button>
-      <button class="icon-btn" data-pop="in2" aria-label="LinkedIn (sticky)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 17V10"/><circle cx="8" cy="7" r="1.2"/><path d="M12 17v-4a3 3 0 0 1 6 0v4"/></svg>
-        <span class="pop" id="pop-in2">linkedin.com/in/sumanth-yadav-chekutty-313a3a21b • <a href="https://linkedin.com/in/sumanth-yadav-chekutty-313a3a21b" target="_blank" rel="noopener">open</a></span>
-      </button>
-      <button class="icon-btn" data-pop="tel2" aria-label="Phone (sticky)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v2.6a2 2 0 0 1-2.3 2 19.8 19.8 0 0 1-8.5-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.5 2 2 0 0 1 2-2.3h2.6a2 2 0 0 1 2 1.6c.12.8.33 1.6.63 2.3a2 2 0 0 1-.47 2.1l-1.3 1.5a16 16 0 0 0 6 6l1.5-1.3a2 2 0 0 1 2.1-.47c.7.3 1.5.5 2.3.63a2 2 0 0 1 1.6 2z"/></svg>
-        <span class="pop" id="pop-tel2">+91 91829 16996 • <a href="tel:+919182916996">call</a></span>
-      </button>
-    </div>
   </div>
 
   <script>
-    // Spark follow for primary button
+    // Spark follow for resume button
     const dl = document.getElementById('dl');
     const spark = dl.querySelector('.spark');
     dl.addEventListener('pointermove', (e)=>{
@@ -295,54 +191,59 @@
       spark.style.setProperty('--y', ((e.clientY - r.top)/r.height*100)+'%');
     });
 
-    // IntersectionObserver for reveal-on-scroll
+    // Reveal on scroll
     const io = new IntersectionObserver((entries)=>{
       for(const entry of entries){ if(entry.isIntersecting){ entry.target.classList.add('show'); io.unobserve(entry.target);} }
     }, { threshold:.14 });
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // Light particle network in the background
+    // Background network
     const c = document.getElementById('net');
     const ctx = c.getContext('2d');
-    let W,H, P=[], tick=0;
-    function size(){ W=c.width=innerWidth; H=c.height=innerHeight; build(); }
+    let W,H,P=[]; function size(){ W=c.width=innerWidth; H=c.height=innerHeight; build(); }
     addEventListener('resize', size);
-    function build(){
-      const n = Math.min(140, Math.floor((W*H)/19000));
-      P = Array.from({length:n},()=>({x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.45, vy:(Math.random()-.5)*.45}));
-    }
-    function step(){
-      tick++; ctx.clearRect(0,0,W,H);
-      const g = ctx.createLinearGradient(0,0,W,H);
-      g.addColorStop(0,'rgba(255,106,0,.05)'); g.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    function build(){ const n = Math.min(130, Math.floor((W*H)/20000)); P = Array.from({length:n},()=>({x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.45, vy:(Math.random()-.5)*.45})); }
+    function step(){ ctx.clearRect(0,0,W,H); const g = ctx.createLinearGradient(0,0,W,H); g.addColorStop(0,'rgba(245,158,11,.06)'); g.addColorStop(1,'rgba(0,0,0,0)'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
       for(const p of P){ p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>W) p.vx*=-1; if(p.y<0||p.y>H) p.vy*=-1; }
-      for(let i=0;i<P.length;i++){
-        const a=P[i];
-        for(let j=i+1;j<P.length;j++){
-          const b=P[j]; const dx=a.x-b.x, dy=a.y-b.y; const d=Math.hypot(dx,dy); if(d<130){
-            const o=1-(d/130); ctx.strokeStyle=`rgba(17,17,17,${o*.12})`; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
-          }
-        }
-      }
+      for(let i=0;i<P.length;i++){ const a=P[i]; for(let j=i+1;j<P.length;j++){ const b=P[j]; const dx=a.x-b.x, dy=a.y-b.y; const d=Math.hypot(dx,dy); if(d<130){ const o=1-(d/130); ctx.strokeStyle=`rgba(17,17,17,${o*.12})`; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); } } }
       for(const p of P){ ctx.fillStyle='rgba(0,0,0,.14)'; ctx.beginPath(); ctx.arc(p.x,p.y,1.1,0,Math.PI*2); ctx.fill(); }
       requestAnimationFrame(step);
     }
     size(); step();
 
-    // Icon popouts — show fade-out text beneath icon when clicked
-    function bindPops(scope=document){
-      scope.querySelectorAll('.icon-btn').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          const pop = btn.querySelector('.pop');
-          if(!pop) return;
-          pop.classList.remove('show'); // reset if rapidly clicked
-          void pop.offsetWidth;         // reflow to restart animation
-          pop.classList.add('show');
-        });
-      });
+    // Email & Phone pop bubbles (click to open, click-away to close). Also copy email on click.
+    const emailBtn = document.getElementById('emailBtn');
+    const telBtn = document.getElementById('telBtn');
+    const popEmail = document.getElementById('pop-email');
+    const popTel = document.getElementById('pop-tel');
+
+    function togglePop(btn, pop){
+      // hide others
+      [popEmail, popTel].forEach(p=>{ if(p!==pop) p.classList.remove('show'); });
+      pop.classList.toggle('show');
     }
-    bindPops(document);
+
+    emailBtn.addEventListener('click', (e)=>{
+      e.stopPropagation(); togglePop(emailBtn, popEmail);
+      // copy email to clipboard when bubble becomes visible
+      if(popEmail.classList.contains('show')){
+        navigator.clipboard && navigator.clipboard.writeText('Chekuttysumanth.yadav@gmail.com').catch(()=>{});
+      }
+    });
+
+    telBtn.addEventListener('click', (e)=>{ e.stopPropagation(); togglePop(telBtn, popTel); });
+
+    // click-away to close
+    document.addEventListener('click', ()=>{ popEmail.classList.remove('show'); popTel.classList.remove('show'); });
+
+    // also close on escape
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ popEmail.classList.remove('show'); popTel.classList.remove('show'); } });
+
+    // clicking inside bubbles should not propagate
+    [popEmail, popTel].forEach(pop=> pop.addEventListener('click', (e)=> e.stopPropagation()));
+
+    // optional: clicking phone bubble initiates call
+    popTel.addEventListener('click', ()=>{ window.location.href='tel:+919182916996'; });
   </script>
 </body>
 </html>
