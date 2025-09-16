@@ -57,7 +57,10 @@
 
     .idcard{position:absolute; left:50%; top:calc(26% + 18px); transform:translateX(-50%); width: clamp(260px, 78%, 360px); background: var(--card-bg); border:1px solid var(--card-stroke); border-radius: 18px; backdrop-filter: blur(var(--backdrop-blur)) saturate(1.1); -webkit-backdrop-filter: blur(var(--backdrop-blur)) saturate(1.1); box-shadow: var(--shadow); overflow:hidden; display:flex; flex-direction:column; padding-bottom: 12px}
     .idcard::after{content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; box-shadow: inset 0 0 0 1px var(--card-inner)}
-    .photo{margin:12px 12px 8px 12px; border-radius:14px; overflow:hidden; background:linear-gradient(135deg,#1d2430,#12171f); box-shadow: 0 16px 28px rgba(0,0,0,.22); aspect-ratio: 5/6; display:grid; place-items:center; color:#99a0aa; font: 600 14px/1.2 system-ui}
+    .photo{margin:12px 12px 8px 12px; border-radius:14px; overflow:hidden; position:relative; background:linear-gradient(135deg,#1d2430,#12171f); box-shadow:0 16px 28px rgba(0,0,0,.22); aspect-ratio:5/6; display:block}
+.photo img{display:block; width:100%; height:100%; object-fit:cover; object-position:center 20%; image-rendering:auto}
+/* Switch to contain (no crop) by adding data-fit="contain" to .photo */
+.photo[data-fit="contain"] img{object-fit:contain; background:#0c1118} 
 
     .card-social{margin: 6px 12px 0; background: rgba(12,17,24,.72); border:1px solid var(--card-stroke); border-radius: 14px; padding: 10px 12px}
     .icons{ display:flex; gap:12px; align-items:center; justify-content:center }
@@ -120,10 +123,7 @@
       <div class="clip"><div class="ring" aria-hidden="true"></div></div>
 
       <section class="idcard" aria-label="Profile ID card">
-        <div class="photo">
-  <img src="assets/sumanth.jpg" alt="Portrait of Chekutty Sumanth Yadav" width="600" height="720" />
-</div>
-
+        <div class="photo"><img src="assets/sumanth.jpg" alt="Portrait of Chekutty Sumanth Yadav" width="600" height="720" loading="lazy" decoding="async" /></div>
         <div class="card-social">
           <nav class="icons" aria-label="Social links">
             <a class="icon" href="mailto:Chekuttysumanth.yadav@gmail.com" target="_blank" rel="noopener" aria-label="Email Sumanth">
